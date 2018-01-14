@@ -11,6 +11,6 @@ public class KamehaController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(-transform.forward*30*Time.deltaTime);
+        transform.Translate(transform.forward*30*Time.deltaTime);
     }
 }

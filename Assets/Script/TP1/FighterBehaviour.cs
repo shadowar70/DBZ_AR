@@ -10,7 +10,7 @@ public class FighterBehaviour : MonoBehaviour {
     double longMaxContourLeft = 0;
     double longMaxContourRight = 0;
     Boolean isKameha;
-    public int speedDash = 20;
+    public int speedDash = 200;
     public GameObject prefabBall;
     public GameObject spawnerLeft;
     public GameObject spawnerRight;
@@ -78,13 +78,14 @@ public class FighterBehaviour : MonoBehaviour {
     }
 
     void BallAttack(int fireLeft) {
-
+        GameObject fireBall;
         if(fireLeft == 1) {
-            Instantiate(prefabBall, spawnerLeft.transform.position, Quaternion.Euler(0, -90, 0));
+            fireBall = Instantiate(prefabBall, spawnerLeft.transform.position, Quaternion.Euler(0, 0, 0));
         }
         else {
-            Instantiate(prefabBall, spawnerRight.transform.position, Quaternion.Euler(0, -90, 0));
+            fireBall = Instantiate(prefabBall, spawnerRight.transform.position, Quaternion.Euler(0, 0, 0));
         }
+        fireBall.transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z));
         AudioClip[] soundTab = { fxFire1, fxFire2, fxFire3 };
         soundManager.GetComponent<SoundManager>().RandomizeSfx(soundTab);
 
@@ -102,7 +103,7 @@ public class FighterBehaviour : MonoBehaviour {
         }
 
         if (moveHeadZ < 0) {
-            transform.Translate(-Vector3.forward* speedDash * Time.deltaTime);
+            transform.Translate(-Vector3.forward * speedDash * Time.deltaTime);
         }
 
 
