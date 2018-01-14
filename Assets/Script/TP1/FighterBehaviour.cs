@@ -9,6 +9,8 @@ public class FighterBehaviour : MonoBehaviour {
     int timer;
     double longMaxContourLeft = 0;
     double longMaxContourRight = 0;
+    double MoveSide = 0;
+    double MoveFront = 0;
     Boolean isKameha;
     public int speedDash = 200;
     public GameObject prefabBall;
@@ -40,8 +42,11 @@ public class FighterBehaviour : MonoBehaviour {
     void Update () {
         longMaxContourLeft = interfaceTP2.leftZ;
         longMaxContourRight = interfaceTP2.rightZ;
+        MoveSide = interfaceTP2.headX;
+        MoveFront = interfaceTP2.headZ;
 
-        MoveWithKey();
+        //MoveWithKey();
+        Dash((float)MoveSide, (float)MoveFront);
 
         if (((lastAreaLeft != -1 && longMaxContourLeft - lastAreaLeft > 0.3) || fireLeftKameha == 1) && !isKameha) {
             isKameha = true;
@@ -93,22 +98,22 @@ public class FighterBehaviour : MonoBehaviour {
 
     void Dash(float moveHeadX, float moveHeadZ){
 
-        if(moveHeadX < 0) {
-            transform.RotateAround(target.transform.position, Vector3.up, speedDash * Time.deltaTime);
+        if(moveHeadX < -0.2) {
+            transform.RotateAround(target.transform.position, Vector3.up, -speedDash * Time.deltaTime* moveHeadX);
         }
 
 
-        if (moveHeadX > 0) {
-            transform.RotateAround(target.transform.position, Vector3.up, -speedDash * Time.deltaTime);
+        if (moveHeadX > 0.2) {
+            transform.RotateAround(target.transform.position, Vector3.up, -speedDash * Time.deltaTime* moveHeadX);
         }
 
-        if (moveHeadZ < 0) {
-            transform.Translate(-Vector3.forward * speedDash * Time.deltaTime);
+        if (moveHeadZ < -0.1) {
+            transform.Translate(Vector3.forward * speedDash*2 * Time.deltaTime* moveHeadZ);
         }
 
 
-        if (moveHeadZ > 0) {
-            transform.Translate(Vector3.forward * speedDash * Time.deltaTime);
+        if (moveHeadZ > 0.1) {
+            transform.Translate(Vector3.forward * speedDash*2 * Time.deltaTime* moveHeadZ);
         }
     }
 

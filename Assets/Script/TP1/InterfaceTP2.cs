@@ -6,15 +6,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class InterfaceTP2 : MonoBehaviour {
     private int MIN_FACE_SIZE = 180;
     private int MAX_FACE_SIZE = 300;
 
     VideoCapture webcam;
-   // int timer;
+    public RawImage RIWebcam;
+    public RawImage RIWebcamHSVFace;
+    public RawImage RILeftHand;
+    public RawImage RIRightHand;
+    public MemoryStream memstream = new MemoryStream();
+    Texture2D textureCam;
+    // int timer;
     double longMaxContour = 0;
 
     //Classifier
@@ -61,7 +68,12 @@ public class InterfaceTP2 : MonoBehaviour {
     void Start() {
         frontFaceClassifier = new CascadeClassifier("Assets\\haarcascades\\haarcascade_frontalface_default.xml");
         webcam = new VideoCapture(0);
-        CvInvoke.WaitKey(0); 
+        CvInvoke.WaitKey(0);
+
+        //RIWebcam.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
+        //RIWebcamHSVFace.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
+        //RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
+        //RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
     }
 
     // Update is called once per frame
@@ -92,6 +104,7 @@ public class InterfaceTP2 : MonoBehaviour {
         DetectFace(image);
 
         CvInvoke.Imshow("Mon Image de base HSV", img);
+        //RIWebcamHSVFace.texture = ImageToTexture(image);
     }
 
     private void DetectFace(Mat image) {
@@ -209,6 +222,14 @@ public class InterfaceTP2 : MonoBehaviour {
 
     }
     //=======================BOITE A IDEES===============================
-    
 
+    Texture ImageToTexture(Mat matImage) {
+        memstream.Flush();
+        memstream.Close();
+        memstream.Dispose();
+        memstream = new MemoryStream();
+        matImage.Bitmap.Save(memstream, matImage.Bitmap.RawFormat);
+        textureCam.LoadImage(memstream.ToArray());
+        return textureCam;
+    }
 }
