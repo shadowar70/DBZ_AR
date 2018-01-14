@@ -29,8 +29,8 @@ public class InterfaceTP2BIS : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        frontFaceClassifier = new CascadeClassifier("D:\\Jothenin_gamagora2017\\source\\repos\\InterfaceProject\\Assets\\haarcascades\\haarcascade_frontalface_default.xml");
-        frontEyesClassifier = new CascadeClassifier("D:\\Jothenin_gamagora2017\\source\\repos\\InterfaceProject\\Assets\\haarcascades\\haarcascade_eye.xml");
+        frontFaceClassifier = new CascadeClassifier("Assets\\haarcascades\\haarcascade_frontalface_default.xml");
+        frontEyesClassifier = new CascadeClassifier("Assets\\haarcascades\\haarcascade_eye.xml");
         webcam = new VideoCapture(0);
         RIWebcam.rectTransform.sizeDelta = new Vector2(webcam.Width/2, webcam.Height/2);
         RIFeedback.rectTransform.sizeDelta = new Vector2(webcam.Width/2, webcam.Height/2);
