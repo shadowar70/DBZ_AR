@@ -2393,8 +2393,8 @@ MonoBehaviour:
   leftSMax: 255
   leftVMin: 80
   leftVMax: 255
-  rightHMin: 10
-  rightHMax: 30
+  rightHMin: 150
+  rightHMax: 185
   rightSMin: 20
   rightSMax: 255
   rightVMin: 20
@@ -2408,6 +2408,7 @@ MonoBehaviour:
   headX: 0
   headY: 0
   headZ: 0
+  useStub: 0
   zNormalFactor: 55
 --- !u!82 &1014451493
 AudioSource:
