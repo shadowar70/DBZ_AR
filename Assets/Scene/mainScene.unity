@@ -2485,6 +2485,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16166cfc5fd259c43a36af866797df92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RIWebcam: {fileID: 0}
+  RIWebcamHSVFace: {fileID: 0}
+  RILeftHand: {fileID: 0}
+  RIRightHand: {fileID: 0}
   leftHMin: 30
   leftHMax: 120
   leftSMin: 80

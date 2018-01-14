@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KamehaController : MonoBehaviour {
-
+    public float speed = 30;
 	// Use this for initialization
 	void Start () {
         Destroy(gameObject, 10);
@@ -11,6 +11,6 @@ public class KamehaController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(transform.forward*30*Time.deltaTime);
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 }
