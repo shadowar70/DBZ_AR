@@ -2393,8 +2393,8 @@ MonoBehaviour:
   leftSMax: 255
   leftVMin: 80
   leftVMax: 255
-  rightHMin: 10
-  rightHMax: 30
+  rightHMin: 150
+  rightHMax: 185
   rightSMin: 20
   rightSMax: 255
   rightVMin: 20
