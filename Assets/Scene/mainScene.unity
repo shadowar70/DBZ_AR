@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45078743, g: 0.498962, b: 0.56533456, a: 1}
+  m_IndirectSpecularColor: {r: 0.45078766, g: 0.49896234, b: 0.56533533, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2408,6 +2408,7 @@ MonoBehaviour:
   headX: 0
   headY: 0
   headZ: 0
+  useStub: 0
   zNormalFactor: 55
 --- !u!82 &1014451493
 AudioSource:
@@ -2500,6 +2501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6e2984f4264b44abdcf9e911e1cd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedDash: 20
   prefabBall: {fileID: 1686769470588530, guid: 27f61947ce7918949b0ec4d3fe2b24d4, type: 2}
   spawner: {fileID: 1085442292}
   seuilmin: 20000
@@ -2507,6 +2509,7 @@ MonoBehaviour:
   fxFire2: {fileID: 8300000, guid: c056cf01aca1e25428bb6d54138aa9ea, type: 3}
   fxFire3: {fileID: 8300000, guid: 1b8f3d15daf7ca74d847ffbda7bbacea, type: 3}
   soundManager: {fileID: 189273953}
+  target: {fileID: 1689151543}
 --- !u!1 &1053232363
 GameObject:
   m_ObjectHideFlags: 0

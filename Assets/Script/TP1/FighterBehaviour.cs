@@ -9,6 +9,7 @@ public class FighterBehaviour : MonoBehaviour {
     int timer;
     double longMaxContour = 0;
     Boolean isKameha;
+    public int speedDash = 20;
     public GameObject prefabBall;
     public GameObject spawner;
     public double seuilmin;
@@ -18,6 +19,7 @@ public class FighterBehaviour : MonoBehaviour {
     public AudioClip fxFire3;
 
     public GameObject soundManager;
+    public GameObject target;
 
     double lastArea = 0;
 
@@ -55,6 +57,27 @@ public class FighterBehaviour : MonoBehaviour {
         AudioClip[] soundTab = { fxFire1, fxFire2, fxFire3 };
         soundManager.GetComponent<SoundManager>().RandomizeSfx(soundTab);
 
+    }
+
+    void Dash(float moveHeadX, float moveHeadZ){
+
+        if(moveHeadX < 0) {
+            transform.RotateAround(target.transform.position, Vector3.up, speedDash * Time.deltaTime);
+        }
+
+
+        if (moveHeadX > 0) {
+            transform.RotateAround(target.transform.position, Vector3.up, -speedDash * Time.deltaTime);
+        }
+
+        if (moveHeadZ < 0) {
+            transform.Translate(Vector3.forward* speedDash * Time.deltaTime);
+        }
+
+
+        if (moveHeadZ > 0) {
+            transform.Translate(-Vector3.forward * speedDash * Time.deltaTime);
+        }
     }
 
 
