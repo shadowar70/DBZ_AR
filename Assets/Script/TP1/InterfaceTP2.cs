@@ -21,6 +21,7 @@ public class InterfaceTP2 : MonoBehaviour {
     public RawImage RIRightHand;
     public MemoryStream memstream = new MemoryStream();
     Texture2D textureCam;
+    int factReducWebcam = 4;
     // int timer;
     double longMaxContour = 0;
 
@@ -68,12 +69,14 @@ public class InterfaceTP2 : MonoBehaviour {
     void Start() {
         frontFaceClassifier = new CascadeClassifier("Assets\\haarcascades\\haarcascade_frontalface_default.xml");
         webcam = new VideoCapture(0);
+        RIWebcam.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
+        RIWebcamHSVFace.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
+        RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
+        RIRightHand.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
+
+        textureCam = new Texture2D(webcam.Width, webcam.Height);
         CvInvoke.WaitKey(0);
 
-        //RIWebcam.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
-        //RIWebcamHSVFace.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
-        //RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
-        //RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / 2, webcam.Height / 2);
     }
 
     // Update is called once per frame
@@ -104,7 +107,7 @@ public class InterfaceTP2 : MonoBehaviour {
         DetectFace(image);
 
         CvInvoke.Imshow("Mon Image de base HSV", img);
-        //RIWebcamHSVFace.texture = ImageToTexture(image);
+        RIWebcamHSVFace.texture = ImageToTexture(image);
     }
 
     private void DetectFace(Mat image) {
@@ -150,6 +153,7 @@ public class InterfaceTP2 : MonoBehaviour {
         }
 
         CvInvoke.Imshow("Mon Image de base", image);
+        RIWebcam.texture = ImageToTexture(image);
     }
 
     private void DetectBall(Mat image, Image<Hsv, byte> img, Hsv seuilBas, Hsv seuilHaut, String suffix) {
@@ -198,10 +202,24 @@ public class InterfaceTP2 : MonoBehaviour {
                 throw new NotImplementedException();
             }
         }
-            CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
+
+        
+        CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
+        
+
         if (contourObject.Size > 0) {
             CvInvoke.DrawContours(img, contourObject, indexBestContour, colorConst, 2);
         }
+
+        if (suffix == "Left") {
+            
+            RILeftHand.texture = ImageToTexture(imageBinLeft.Clone());
+        }
+        else {
+            
+            RIRightHand.texture = ImageToTexture(imageBinLeft.Clone());
+        }
+
     }
 
     private void OnDestroy() {
