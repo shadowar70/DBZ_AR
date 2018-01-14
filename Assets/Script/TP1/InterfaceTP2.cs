@@ -10,6 +10,8 @@ using UnityEngine;
 
 
 public class InterfaceTP2 : MonoBehaviour {
+    private int MIN_FACE_SIZE = 180;
+    private int MAX_FACE_SIZE = 300;
 
     VideoCapture webcam;
    // int timer;
@@ -32,6 +34,11 @@ public class InterfaceTP2 : MonoBehaviour {
     public float rightSMax = 255;
     public float rightVMin = 0;
     public float rightVMax = 255;
+
+    public float faceAreaMin;
+    public float faceAreaMid;
+    public float faceAreaMax;
+    public float headThreshold;
 
     //outputs
     public double leftX;
@@ -62,8 +69,10 @@ public class InterfaceTP2 : MonoBehaviour {
         ////SEUILLAGE BOUBOULE
         Mat image;
         image = webcam.QueryFrame();
+        CvInvoke.Flip(image, image, FlipType.Horizontal);
         CvInvoke.CvtColor(image, image, ColorConversion.Bgr2Hsv);
-        //CvInvoke.MedianBlur(image, image, 5);
+
+        CvInvoke.MedianBlur(image, image, 5);
         //CvInvoke.GaussianBlur(image, image, new Size(5,5), 10);
         //CvInvoke.Blur(image, image, new Size(11, 11), new Point(10));
 
@@ -80,13 +89,54 @@ public class InterfaceTP2 : MonoBehaviour {
         DetectBall(image, img, seuilBas, seuilHaut, "Right");
 
         //Detect face with cascad classifier
-        DetectFace();
+        DetectFace(image);
 
         CvInvoke.Imshow("Mon Image de base HSV", img);
     }
 
-    private void DetectFace() {
-        Debug.Log("TODO");
+    private void DetectFace(Mat image) {
+        Rectangle[] frontFaces = frontFaceClassifier.DetectMultiScale(image, 1.1, 5, new Size(MIN_FACE_SIZE, MIN_FACE_SIZE), new Size(MAX_FACE_SIZE, MAX_FACE_SIZE));
+
+        int indBestFace = -1;
+        if (frontFaces.Length > 0) {
+            indBestFace = 0;
+            float bestArea = frontFaces[0].Height * frontFaces[0].Width;
+            for (int i = 1; i < frontFaces.Length; i++) {
+                float curArea = frontFaces[i].Height * frontFaces[i].Width;
+                if (curArea > bestArea) {
+                    bestArea = curArea;
+                    indBestFace = i;
+                }
+            }
+        }
+
+        if (indBestFace > -1) {
+            // X Y
+            float w = frontFaces[indBestFace].Width;
+            float h = frontFaces[indBestFace].Height;
+            float x = (float) frontFaces[indBestFace].Left + (float) frontFaces[indBestFace].Width / 2;
+            float y = (float) frontFaces[indBestFace].Top + (float) frontFaces[indBestFace].Height / 2;
+            CvInvoke.Circle(image, new Point((int) x, (int) y), 5, new MCvScalar(100, 255, 100), 2);
+            headX = Mathf.Clamp((((float) x / ((float)image.Width)) - 0.5f) * 5f, -1f, 1);
+
+            // Z
+            float area =  w * h;
+            CvInvoke.Rectangle(image, frontFaces[indBestFace], new MCvScalar(100, 255, 100), 2);
+
+            if (area > faceAreaMid + headThreshold) {
+                headZ = Mathf.Min(1, (area - faceAreaMid) / (faceAreaMax - faceAreaMid));
+            } else if (area < faceAreaMid - headThreshold) {
+                headZ = Mathf.Max(-1,  -(area - faceAreaMid) / (faceAreaMin - faceAreaMid));
+            } else {
+                headZ = 0;
+            }
+        } else {
+            headX = 0;
+            headY = 0;
+            headZ = 0;
+        }
+
+        CvInvoke.Imshow("Mon Image de base", image);
     }
 
     private void DetectBall(Mat image, Image<Hsv, byte> img, Hsv seuilBas, Hsv seuilHaut, String suffix) {
@@ -138,37 +188,6 @@ public class InterfaceTP2 : MonoBehaviour {
             CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
         if (contourObject.Size > 0) {
             CvInvoke.DrawContours(img, contourObject, indexBestContour, colorConst, 2);
-        }
-    }
-
-    private void SetStubOutput() {
-        leftZ = 0;
-        rightZ = 0;
-	headZ = 0;
-        headX = 0;
-
-        // Right kamea
-        if (Input.GetKey(KeyCode.Keypad1)) {
-            leftZ = 1;
-        }
-
-        // Right kamea
-        if (Input.GetKey(KeyCode.Keypad3)) {
-            rightZ = 1;
-        }
-
-	// Head pos
-	if (Input.GetKey(KeyCode.Z)) {
-            headZ = 1;
-        }
-	if (Input.GetKey(KeyCode.S)) {
-            headZ = -1;
-        }
-	if (Input.GetKey(KeyCode.Q)) {
-            headX = -1;
-        }
-	if (Input.GetKey(KeyCode.D)) {
-            headX = 1;
         }
     }
 
