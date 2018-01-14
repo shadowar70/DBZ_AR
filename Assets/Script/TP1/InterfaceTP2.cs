@@ -43,13 +43,15 @@ public class InterfaceTP2 : MonoBehaviour {
     public double headY;
     public double headZ;
 
+    public bool useStub = false;
+
     public double zNormalFactor = 10;
 
     // Use this for initialization
     void Start() {
 
         webcam = new VideoCapture(0);
-        CvInvoke.WaitKey(0);    
+        CvInvoke.WaitKey(0); 
     }
 
     // Update is called once per frame
@@ -138,18 +140,57 @@ public class InterfaceTP2 : MonoBehaviour {
             }
 
         }
-        if (indexBestContour > -1) {
-            double area = CvInvoke.ContourArea(contourObject[indexBestContour]);
-            rightZ = area / (image.Width * image.Height) * zNormalFactor;
-        }
-        else {
-            rightZ = -1;
+
+        if (useStub) {
+            SetStubOutput();
+        } else {
+            SetOutput(image, contourObject, indexBestContour);
         }
 
         CvInvoke.Imshow("Mon Image 2 HSV", imageBinRight);
         if (contourObject.Size > 0)
         CvInvoke.DrawContours(img, contourObject, indexBestContour, colorConst, 2);
         CvInvoke.Imshow("Mon Image de base", img);
+    }
+
+    private void SetStubOutput() {
+        leftZ = 0;
+        rightZ = 0;
+	headZ = 0;
+        headX = 0;
+
+        // Right kamea
+        if (Input.GetKey(KeyCode.Keypad1)) {
+            leftZ = 1;
+        }
+
+        // Right kamea
+        if (Input.GetKey(KeyCode.Keypad3)) {
+            rightZ = 1;
+        }
+
+	// Head pos
+	if (Input.GetKey(KeyCode.Z)) {
+            headZ = 1;
+        }
+	if (Input.GetKey(KeyCode.S)) {
+            headZ = -1;
+        }
+	if (Input.GetKey(KeyCode.Q)) {
+            headX = -1;
+        }
+	if (Input.GetKey(KeyCode.D)) {
+            headX = 1;
+        }
+    }
+
+    private void SetOutput(Mat image, VectorOfVectorOfPoint contourObject, int indexBestContour) {
+        if (indexBestContour > -1) {
+            double area = CvInvoke.ContourArea(contourObject[indexBestContour]);
+            rightZ = area / (image.Width * image.Height) * zNormalFactor;
+        } else {
+            rightZ = -1;
+        }
     }
 
     private void OnDestroy() {
