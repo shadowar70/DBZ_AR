@@ -20,8 +20,8 @@ public class InterfaceTP2 : MonoBehaviour {
     public RawImage RILeftHand;
     public RawImage RIRightHand;
     public MemoryStream memstream = new MemoryStream();
-    Texture2D textureCam;
-    int factReducWebcam = 4;
+
+    int factReducWebcam = 2;
     // int timer;
     double longMaxContour = 0;
 
@@ -74,7 +74,6 @@ public class InterfaceTP2 : MonoBehaviour {
         RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
         RIRightHand.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
 
-        textureCam = new Texture2D(webcam.Width, webcam.Height);
         CvInvoke.WaitKey(0);
 
     }
@@ -85,6 +84,7 @@ public class InterfaceTP2 : MonoBehaviour {
         Mat image;
         image = webcam.QueryFrame();
         CvInvoke.Flip(image, image, FlipType.Horizontal);
+        RIWebcam.texture = ImageToTexture(image);
         CvInvoke.CvtColor(image, image, ColorConversion.Bgr2Hsv);
 
         CvInvoke.MedianBlur(image, image, 5);
@@ -106,7 +106,7 @@ public class InterfaceTP2 : MonoBehaviour {
         //Detect face with cascad classifier
         DetectFace(image);
 
-        CvInvoke.Imshow("Mon Image de base HSV", img);
+        //CvInvoke.Imshow("Mon Image de base HSV", img);
         RIWebcamHSVFace.texture = ImageToTexture(image);
     }
 
@@ -152,8 +152,8 @@ public class InterfaceTP2 : MonoBehaviour {
             headZ = 0;
         }
 
-        CvInvoke.Imshow("Mon Image de base", image);
-        RIWebcam.texture = ImageToTexture(image);
+        //CvInvoke.Imshow("Mon Image de base", image);
+        
     }
 
     private void DetectBall(Mat image, Image<Hsv, byte> img, Hsv seuilBas, Hsv seuilHaut, String suffix) {
@@ -204,7 +204,7 @@ public class InterfaceTP2 : MonoBehaviour {
         }
 
         
-        CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
+        //CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
         
 
         if (contourObject.Size > 0) {
@@ -212,7 +212,6 @@ public class InterfaceTP2 : MonoBehaviour {
         }
 
         if (suffix == "Left") {
-            
             RILeftHand.texture = ImageToTexture(imageBinLeft.Clone());
         }
         else {
@@ -247,6 +246,8 @@ public class InterfaceTP2 : MonoBehaviour {
         memstream.Dispose();
         memstream = new MemoryStream();
         matImage.Bitmap.Save(memstream, matImage.Bitmap.RawFormat);
+        Texture2D textureCam;
+        textureCam = new Texture2D(webcam.Width, webcam.Height);
         textureCam.LoadImage(memstream.ToArray());
         return textureCam;
     }

@@ -85,12 +85,12 @@ public class FighterBehaviour : MonoBehaviour {
     void BallAttack(int fireLeft) {
         GameObject fireBall;
         if(fireLeft == 1) {
-            fireBall = Instantiate(prefabBall, spawnerLeft.transform.position, Quaternion.Euler(0, 0, 0));
+            fireBall = Instantiate(prefabBall, spawnerLeft.transform.position, Camera.main.transform.rotation);
         }
         else {
-            fireBall = Instantiate(prefabBall, spawnerRight.transform.position, Quaternion.Euler(0, 0, 0));
+            fireBall = Instantiate(prefabBall, spawnerRight.transform.position, Camera.main.transform.rotation);
         }
-        fireBall.transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z));
+        //fireBall.transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z));
         AudioClip[] soundTab = { fxFire1, fxFire2, fxFire3 };
         soundManager.GetComponent<SoundManager>().RandomizeSfx(soundTab);
 
