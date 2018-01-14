@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45078743, g: 0.498962, b: 0.56533456, a: 1}
+  m_IndirectSpecularColor: {r: 0.45078766, g: 0.49896234, b: 0.56533533, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -334,7 +334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &189273956
 AudioSource:
@@ -1415,7 +1415,7 @@ Transform:
   m_LocalScale: {x: 5088.0312, y: 0.21137762, z: 6736.8096}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &641334061
 GameObject:
@@ -2372,7 +2372,9 @@ Transform:
   m_LocalRotation: {x: 0.105923414, y: -0, z: -0, w: 0.99437433}
   m_LocalPosition: {x: -117, y: 32.4, z: -24.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1085442293}
+  - {fileID: 1979558496}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 12.161, y: 0, z: 0}
@@ -2501,13 +2503,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6e2984f4264b44abdcf9e911e1cd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedDash: 20
   prefabBall: {fileID: 1686769470588530, guid: 27f61947ce7918949b0ec4d3fe2b24d4, type: 2}
-  spawner: {fileID: 1085442292}
+  spawnerLeft: {fileID: 1085442292}
+  spawnerRight: {fileID: 1979558495}
   seuilmin: 20000
   fxFire1: {fileID: 8300000, guid: b955a0a64c19b63408b133fae485c221, type: 3}
   fxFire2: {fileID: 8300000, guid: c056cf01aca1e25428bb6d54138aa9ea, type: 3}
   fxFire3: {fileID: 8300000, guid: 1b8f3d15daf7ca74d847ffbda7bbacea, type: 3}
   soundManager: {fileID: 189273953}
+  target: {fileID: 1689151543}
 --- !u!1 &1053232363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1085442293}
   m_Layer: 0
-  m_Name: SpawnFireBall
+  m_Name: SpawnLeftFireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2639,12 +2644,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1085442292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -116.89, y: 19.27, z: -17.709997}
+  m_LocalRotation: {x: -0.105923414, y: 0, z: -0, w: 0.99437433}
+  m_LocalPosition: {x: -3.67, y: -11.489284, z: 9.012516}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1014451491}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1101205965
 GameObject:
@@ -3001,7 +3006,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7d083fc27dba3a742947739d0b2084e6, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7d083fc27dba3a742947739d0b2084e6, type: 3}
       propertyPath: m_LocalScale.x
@@ -3110,7 +3115,7 @@ Transform:
   - {fileID: 650127562}
   - {fileID: 1871504504}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1289478146
 GameObject:
@@ -4296,7 +4301,7 @@ Transform:
   - {fileID: 470037534}
   - {fileID: 1808583092}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1672361866
 GameObject:
@@ -4601,7 +4606,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 23.312, y: -52.688004, z: -36.212}
 --- !u!1 &1797124196
 GameObject:
@@ -4818,6 +4823,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1411648193}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1979558495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1979558496}
+  m_Layer: 0
+  m_Name: SpawnRightFireBall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979558496
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979558495}
+  m_LocalRotation: {x: -0.105923414, y: -0, z: -0, w: 0.99437433}
+  m_LocalPosition: {x: 4.16, y: -11.489284, z: 9.012516}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1014451491}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002873078
 GameObject:

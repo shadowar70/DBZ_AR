@@ -7,10 +7,13 @@ public class FighterBehaviour : MonoBehaviour {
     private InterfaceTP2 interfaceTP2;
 
     int timer;
-    double longMaxContour = 0;
+    double longMaxContourLeft = 0;
+    double longMaxContourRight = 0;
     Boolean isKameha;
+    public int speedDash = 20;
     public GameObject prefabBall;
-    public GameObject spawner;
+    public GameObject spawnerLeft;
+    public GameObject spawnerRight;
     public double seuilmin;
 
     public AudioClip fxFire1;
@@ -18,8 +21,13 @@ public class FighterBehaviour : MonoBehaviour {
     public AudioClip fxFire3;
 
     public GameObject soundManager;
+    public GameObject target;
 
-    double lastArea = 0;
+    double lastAreaLeft = 0;
+    double lastAreaRight = 0;
+
+    float fireLeftKameha = 0;
+    float fireRightKameha = 0;
 
     // Use this for initialization
     void Start () {
@@ -30,32 +38,109 @@ public class FighterBehaviour : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        longMaxContour = interfaceTP2.leftZ;
+        longMaxContourLeft = interfaceTP2.leftZ;
+        longMaxContourRight = interfaceTP2.rightZ;
 
-        if (lastArea != -1 &&  longMaxContour - lastArea > 0.3 && !isKameha) {
-            Debug.Log("tmp : " + lastArea);
-            Debug.Log("contour : " + longMaxContour);
-            Debug.Log("splosh");
+        MoveWithKey();
+
+        if (((lastAreaLeft != -1 && longMaxContourLeft - lastAreaLeft > 0.3) || fireLeftKameha == 1) && !isKameha) {
             isKameha = true;
-            Debug.Log("i" + isKameha);
+            //Debug.Log("tmp : " + lastArea);
+            //Debug.Log("contour : " + longMaxContour);
+            //Debug.Log("splosh");
+            //Debug.Log("i" + isKameha);
+
             // Lancer l'attaque
-            BallAttack();
+            BallAttack(1);
         }
-        if (longMaxContour < 2500 && isKameha) {
+        if (longMaxContourLeft < 2500 && isKameha) {
             isKameha = false;
-            Debug.Log("o" + isKameha);
+            //Debug.Log("o" + isKameha);
         }
 
-        lastArea = longMaxContour;
+        if (((lastAreaRight != -1 && longMaxContourRight - lastAreaRight > 0.3) || fireRightKameha == 1) && !isKameha) {
+            isKameha = true;
+            //Debug.Log("tmp : " + lastArea);
+            //Debug.Log("contour : " + longMaxContour);
+            //Debug.Log("splosh");
+            //Debug.Log("i" + isKameha);
+
+            // Lancer l'attaque
+            BallAttack(-1);
+        }
+        if (longMaxContourRight < 2500 && isKameha) {
+            isKameha = false;
+            //Debug.Log("o" + isKameha);
+        }
+
+        lastAreaRight = longMaxContourRight;
+        lastAreaLeft = longMaxContourLeft;
     }
 
-    void BallAttack() {
+    void BallAttack(int fireLeft) {
 
-        Instantiate(prefabBall, spawner.transform.position, Quaternion.Euler(0, -90, 0));
+        if(fireLeft == 1) {
+            Instantiate(prefabBall, spawnerLeft.transform.position, Quaternion.Euler(0, -90, 0));
+        }
+        else {
+            Instantiate(prefabBall, spawnerRight.transform.position, Quaternion.Euler(0, -90, 0));
+        }
         AudioClip[] soundTab = { fxFire1, fxFire2, fxFire3 };
         soundManager.GetComponent<SoundManager>().RandomizeSfx(soundTab);
 
     }
 
+    void Dash(float moveHeadX, float moveHeadZ){
 
+        if(moveHeadX < 0) {
+            transform.RotateAround(target.transform.position, Vector3.up, speedDash * Time.deltaTime);
+        }
+
+
+        if (moveHeadX > 0) {
+            transform.RotateAround(target.transform.position, Vector3.up, -speedDash * Time.deltaTime);
+        }
+
+        if (moveHeadZ < 0) {
+            transform.Translate(-Vector3.forward* speedDash * Time.deltaTime);
+        }
+
+
+        if (moveHeadZ > 0) {
+            transform.Translate(Vector3.forward * speedDash * Time.deltaTime);
+        }
+    }
+
+    private void MoveWithKey() {
+        float moveHeadX = 0;
+        float moveHeadZ = 0;
+        fireLeftKameha = 0;
+        fireRightKameha = 0;
+
+        // Right kamea
+        if (Input.GetKey(KeyCode.Keypad1)) {
+            fireLeftKameha = 1;
+        }
+
+        // Right kamea
+        if (Input.GetKey(KeyCode.Keypad3)) {
+            fireRightKameha = 1;
+        }
+
+        // Head pos
+        if (Input.GetKey(KeyCode.Z)) {
+            moveHeadZ = 1;
+        }
+        if (Input.GetKey(KeyCode.S)) {
+            moveHeadZ = -1;
+        }
+        if (Input.GetKey(KeyCode.Q)) {
+            moveHeadX = -1;
+        }
+        if (Input.GetKey(KeyCode.D)) {
+            moveHeadX = 1;
+        }
+
+        Dash(moveHeadX, moveHeadZ);
+    }
 }
