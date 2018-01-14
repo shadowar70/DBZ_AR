@@ -15,6 +15,9 @@ public class InterfaceTP2 : MonoBehaviour {
    // int timer;
     double longMaxContour = 0;
 
+    //Classifier
+    private CascadeClassifier frontFaceClassifier;
+
     //Calibration
     public float leftHMin = 0;
     public float leftHMax = 255;
@@ -49,17 +52,13 @@ public class InterfaceTP2 : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        frontFaceClassifier = new CascadeClassifier("Assets\\haarcascades\\haarcascade_frontalface_default.xml");
         webcam = new VideoCapture(0);
         CvInvoke.WaitKey(0); 
     }
 
     // Update is called once per frame
     void Update() {
-        //SEUILLAGE Mme DOUBLE
-        //Hsv seuilBas = new Hsv(10, 20, 20);
-        //Hsv seuilHaut = new Hsv(30, 255, 255);
-
         ////SEUILLAGE BOUBOULE
         Mat image;
         image = webcam.QueryFrame();
@@ -70,11 +69,28 @@ public class InterfaceTP2 : MonoBehaviour {
 
         Image<Hsv, Byte> img = image.ToImage<Hsv, Byte>();
 
-        //Left Bin Image
-        //Hsv seuilBas = new Hsv(30, 80, 80);
+        //Detect left ball by color
         Hsv seuilBas = new Hsv(leftHMin, leftSMin, leftVMin);
-        //Hsv seuilHaut = new Hsv(120, 255, 255);
         Hsv seuilHaut = new Hsv(leftHMax, leftSMax, leftVMax);
+        DetectBall(image, img, seuilBas, seuilHaut, "Left");
+
+        //Detect right ball by color
+        seuilBas = new Hsv(rightHMin, rightSMin, rightVMin);
+        seuilHaut = new Hsv(rightHMax, rightSMax, rightVMax);
+        DetectBall(image, img, seuilBas, seuilHaut, "Right");
+
+        //Detect face with cascad classifier
+        DetectFace();
+
+        CvInvoke.Imshow("Mon Image de base HSV", img);
+    }
+
+    private void DetectFace() {
+        Debug.Log("TODO");
+    }
+
+    private void DetectBall(Mat image, Image<Hsv, byte> img, Hsv seuilBas, Hsv seuilHaut, String suffix) {
+        //Left Bin Image
         Mat imageBinLeft = img.InRange(seuilBas, seuilHaut).Mat;
 
         int operationSize = 1;
@@ -103,54 +119,26 @@ public class InterfaceTP2 : MonoBehaviour {
         }
         if (indexBestContour > -1) {
             double area = CvInvoke.ContourArea(contourObject[indexBestContour]);
-            leftZ = area / (image.Width * image.Height) * zNormalFactor;
-        } else {
-            leftZ = -1;
-        }
-
-        CvInvoke.Imshow("Mon Image HSV", imageBinLeft);
-        if (contourObject.Size > 0)
-            CvInvoke.DrawContours(img, contourObject, indexBestContour, colorConst, 2);
-        CvInvoke.Imshow("Mon Image de base", img);
-
-        //Right Bin Image
-        //Hsv seuilBas = new Hsv(30, 80, 80);
-        seuilBas = new Hsv(rightHMin, rightSMin, rightVMin);
-        //Hsv seuilHaut = new Hsv(120, 255, 255);
-        seuilHaut = new Hsv(rightHMax, rightSMax, rightVMax);
-        Mat imageBinRight = img.InRange(seuilBas, seuilHaut).Mat;
-
-        CvInvoke.Erode(imageBinRight, imageBinRight, structuringElement, new Point(operationSize, operationSize), 3, BorderType.Default, constante);
-        CvInvoke.Dilate(imageBinRight, imageBinRight, structuringElement, new Point(operationSize, operationSize), 3, BorderType.Default, constante);
-        CvInvoke.FindContours(imageBinRight, contourObject, null, RetrType.Ccomp, ChainApproxMethod.ChainApproxNone);
-
-        contourObject = new VectorOfVectorOfPoint();
-        indexBestContour = -1;
-        for (int i = 0; i < contourObject.Size; i++) {
-            if (i == 0) {
-                longMaxContour = CvInvoke.ContourArea(contourObject[i]);
-                indexBestContour = 0;
+            if (suffix == "Left") {
+                leftZ = area / (image.Width * image.Height) * zNormalFactor;
+            } else if (suffix == "Right") {
+                rightZ = area / (image.Width * image.Height) * zNormalFactor;
             } else {
-
-                if (longMaxContour < CvInvoke.ContourArea(contourObject[i])) {
-                    longMaxContour = CvInvoke.ContourArea(contourObject[i]);
-                    indexBestContour = i;
-                }
+                throw new NotImplementedException();
             }
-
-        }
-
-        if (indexBestContour > -1) {
-            double area = CvInvoke.ContourArea(contourObject[indexBestContour]);
-            rightZ = area / (image.Width * image.Height) * zNormalFactor;
         } else {
-            rightZ = -1;
+            if (suffix == "Left") {
+                leftZ = -1;
+            } else if (suffix == "Right") {
+                rightZ = -1;
+            } else {
+                throw new NotImplementedException();
+            }
         }
-
-        CvInvoke.Imshow("Mon Image 2 HSV", imageBinRight);
-        if (contourObject.Size > 0)
+            CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
+        if (contourObject.Size > 0) {
             CvInvoke.DrawContours(img, contourObject, indexBestContour, colorConst, 2);
-        CvInvoke.Imshow("Mon Image de base", img);
+        }
     }
 
     private void SetStubOutput() {
