@@ -10,6 +10,8 @@ using UnityEngine;
 
 
 public class InterfaceTP2 : MonoBehaviour {
+    private int MIN_FACE_SIZE = 50;
+    private int MAX_FACE_SIZE = 200;
 
     VideoCapture webcam;
    // int timer;
@@ -80,13 +82,20 @@ public class InterfaceTP2 : MonoBehaviour {
         DetectBall(image, img, seuilBas, seuilHaut, "Right");
 
         //Detect face with cascad classifier
-        DetectFace();
+        DetectFace(image);
 
         CvInvoke.Imshow("Mon Image de base HSV", img);
     }
 
-    private void DetectFace() {
-        Debug.Log("TODO");
+    private void DetectFace(Mat image) {
+        Rectangle[] frontFaces = frontFaceClassifier.DetectMultiScale(image, 1.1, 5, new Size(MIN_FACE_SIZE, MIN_FACE_SIZE), new Size(MAX_FACE_SIZE, MAX_FACE_SIZE));
+
+        if (frontFaces.Length > 0) {
+            for (int i = 0; i < frontFaces.Length; i++) {
+                CvInvoke.Rectangle(image, frontFaces[i], new MCvScalar(100, 255, 100), 2);
+            }
+        }
+        CvInvoke.Imshow("Mon Image de base", image);
     }
 
     private void DetectBall(Mat image, Image<Hsv, byte> img, Hsv seuilBas, Hsv seuilHaut, String suffix) {
@@ -138,37 +147,6 @@ public class InterfaceTP2 : MonoBehaviour {
             CvInvoke.Imshow("Mon Image" + suffix, imageBinLeft);
         if (contourObject.Size > 0) {
             CvInvoke.DrawContours(img, contourObject, indexBestContour, colorConst, 2);
-        }
-    }
-
-    private void SetStubOutput() {
-        leftZ = 0;
-        rightZ = 0;
-	headZ = 0;
-        headX = 0;
-
-        // Right kamea
-        if (Input.GetKey(KeyCode.Keypad1)) {
-            leftZ = 1;
-        }
-
-        // Right kamea
-        if (Input.GetKey(KeyCode.Keypad3)) {
-            rightZ = 1;
-        }
-
-	// Head pos
-	if (Input.GetKey(KeyCode.Z)) {
-            headZ = 1;
-        }
-	if (Input.GetKey(KeyCode.S)) {
-            headZ = -1;
-        }
-	if (Input.GetKey(KeyCode.Q)) {
-            headX = -1;
-        }
-	if (Input.GetKey(KeyCode.D)) {
-            headX = 1;
         }
     }
 
