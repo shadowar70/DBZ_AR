@@ -19,9 +19,14 @@ public class InterfaceTP2 : MonoBehaviour {
     public RawImage RIWebcamHSVFace;
     public RawImage RILeftHand;
     public RawImage RIRightHand;
-    public MemoryStream memstream = new MemoryStream();
+    MemoryStream memstream;
+    Texture2D textureCam;
+    Texture2D textureCamHSV;
+    Texture2D textureLeftHand;
+    Texture2D textureRightHand;
 
     int factReducWebcam = 2;
+    int factReducTexture = 2;
     // int timer;
     double longMaxContour = 0;
 
@@ -73,7 +78,11 @@ public class InterfaceTP2 : MonoBehaviour {
         RIWebcamHSVFace.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
         RILeftHand.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
         RIRightHand.rectTransform.sizeDelta = new Vector2(webcam.Width / factReducWebcam, webcam.Height / factReducWebcam);
-
+        textureCam = new Texture2D(webcam.Width / factReducTexture, webcam.Height / factReducTexture);
+        textureCamHSV = new Texture2D(webcam.Width / factReducTexture, webcam.Height / factReducTexture);
+        textureLeftHand = new Texture2D(webcam.Width / factReducTexture, webcam.Height / factReducTexture);
+        textureRightHand = new Texture2D(webcam.Width / factReducTexture, webcam.Height / factReducTexture);
+        memstream = new MemoryStream();
         CvInvoke.WaitKey(0);
 
     }
@@ -84,10 +93,10 @@ public class InterfaceTP2 : MonoBehaviour {
         Mat image;
         image = webcam.QueryFrame();
         CvInvoke.Flip(image, image, FlipType.Horizontal);
-        RIWebcam.texture = ImageToTexture(image);
+        RIWebcam.texture = ImageToTexture(image, textureCam);
         CvInvoke.CvtColor(image, image, ColorConversion.Bgr2Hsv);
 
-        CvInvoke.MedianBlur(image, image, 5);
+        //CvInvoke.MedianBlur(image, image, 5);
         //CvInvoke.GaussianBlur(image, image, new Size(5,5), 10);
         //CvInvoke.Blur(image, image, new Size(11, 11), new Point(10));
 
@@ -107,7 +116,8 @@ public class InterfaceTP2 : MonoBehaviour {
         DetectFace(image);
 
         //CvInvoke.Imshow("Mon Image de base HSV", img);
-        RIWebcamHSVFace.texture = ImageToTexture(image);
+        RIWebcamHSVFace.texture = ImageToTexture(image, textureCamHSV);
+        
     }
 
     private void DetectFace(Mat image) {
@@ -212,11 +222,11 @@ public class InterfaceTP2 : MonoBehaviour {
         }
 
         if (suffix == "Left") {
-            RILeftHand.texture = ImageToTexture(imageBinLeft.Clone());
+            RILeftHand.texture = ImageToTexture(imageBinLeft.Clone(), textureLeftHand);
         }
         else {
             
-            RIRightHand.texture = ImageToTexture(imageBinLeft.Clone());
+            RIRightHand.texture = ImageToTexture(imageBinLeft.Clone(), textureRightHand);
         }
 
     }
@@ -239,16 +249,30 @@ public class InterfaceTP2 : MonoBehaviour {
 
     }
     //=======================BOITE A IDEES===============================
-
-    Texture ImageToTexture(Mat matImage) {
+    
+    Texture ImageToTexture(Mat matImage, Texture2D texture) {
         memstream.Flush();
         memstream.Close();
         memstream.Dispose();
         memstream = new MemoryStream();
+        CvInvoke.Resize(matImage, matImage, new Size(webcam.Width / factReducTexture, webcam.Height / factReducTexture));
         matImage.Bitmap.Save(memstream, matImage.Bitmap.RawFormat);
-        Texture2D textureCam;
-        textureCam = new Texture2D(webcam.Width, webcam.Height);
-        textureCam.LoadImage(memstream.ToArray());
-        return textureCam;
+        
+        texture.LoadImage(memstream.ToArray());
+        //texture.Apply();
+        return texture;
     }
+
+    /*
+
+        Texture2D textureCam;
+        textureCam = new Texture2D(webcam.Width, webcam.Height, TextureFormat.RGBA32, false);
+         CvInvoke.Resize(matImage, matImage, new Size(display_WIDTH,display_HEIGHT));
+        CvInvoke.Flip(matImage, matImage, FlipType.Vertical);
+        textureCam.LoadRawTextureData(matImage.ToImage<Bgra, Byte>().Bytes);
+        textureCam.Apply();
+        return textureCam;
+
+
+    */
 }
