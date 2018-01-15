@@ -93,7 +93,7 @@ public class InterfaceTP2 : MonoBehaviour {
         Mat image;
         image = webcam.QueryFrame();
         CvInvoke.Flip(image, image, FlipType.Horizontal);
-        RIWebcam.texture = ImageToTexture(image, textureCam);
+        RIWebcam.texture = ImageToTexture(image.Clone() , textureCam);
         CvInvoke.CvtColor(image, image, ColorConversion.Bgr2Hsv);
 
         //CvInvoke.MedianBlur(image, image, 5);
@@ -116,7 +116,7 @@ public class InterfaceTP2 : MonoBehaviour {
         DetectFace(image);
 
         //CvInvoke.Imshow("Mon Image de base HSV", img);
-        RIWebcamHSVFace.texture = ImageToTexture(image, textureCamHSV);
+        RIWebcamHSVFace.texture = ImageToTexture(image.Clone(), textureCamHSV);
         
     }
 
@@ -255,7 +255,7 @@ public class InterfaceTP2 : MonoBehaviour {
         memstream.Close();
         memstream.Dispose();
         memstream = new MemoryStream();
-        CvInvoke.Resize(matImage, matImage, new Size(webcam.Width / factReducTexture, webcam.Height / factReducTexture));
+        //CvInvoke.Resize(matImage, matImage, new Size(webcam.Width / factReducTexture, webcam.Height / factReducTexture));
         matImage.Bitmap.Save(memstream, matImage.Bitmap.RawFormat);
         
         texture.LoadImage(memstream.ToArray());

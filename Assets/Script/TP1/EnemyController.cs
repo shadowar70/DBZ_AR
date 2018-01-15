@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour {
     private Animator animBody;
     private bool change = false;
     private GameObject target;
+    public int life;
 	// Use this for initialization
 	void Start () {
         animBody = gameObject.GetComponent<Animator>();
@@ -20,6 +21,10 @@ public class EnemyController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.LookAt(new Vector3(target.transform.position.x, 0 , target.transform.position.z));
+        if(life <= 0) {
+            Debug.Log("WIN");
+            Destroy(gameObject);
+        }
 
 	}
 
@@ -40,15 +45,28 @@ public class EnemyController : MonoBehaviour {
     }
 
 
-    private void OnCollisionEnter(Collision collision) {
-        
-        if (collision.gameObject.CompareTag("FireBall")) {
-            animBody.SetBool("isHitBody", true);
-            Invoke("CleanState", 1);
-            Destroy(collision.gameObject.transform.parent.gameObject);
-            Destroy(Instantiate(prefabHit, collision.gameObject.transform.position, Quaternion.identity),1);
-            
+    //private void OnCollisionEnter(Collision collision) {
+
+    //    if (collision.gameObject.CompareTag("FireBall")) {
+    //        animBody.SetBool("isHitBody", true);
+    //        life -= 1;
+    //        Invoke("CleanState", 1);
+    //        Destroy(collision.gameObject.transform.parent.gameObject);
+    //        Destroy(Instantiate(prefabHit, collision.gameObject.transform.position, Quaternion.identity),1);
+
+    //    }
+
+    //}
+
+    private void OnTriggerEnter(Collider other) {
+
+        if (other.CompareTag("FireBall")) {
+            animBody.SetBool("isHitBody" , true);
+            life -= 1;
+            Invoke("CleanState" , 1);
+            Destroy(other.transform.parent.gameObject);
+            Destroy(Instantiate(prefabHit , other.transform.position , Quaternion.identity) , 1);
+
         }
-        
     }
 }

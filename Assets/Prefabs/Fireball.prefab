@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958434161773d4e4cbb99311525a096d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 30
 --- !u!135 &135007739946042306
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -286,7 +287,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1453809752840926}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -350,7 +351,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1248983831
+  randomSeed: 1488364132
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3612,7 +3613,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1577538439
+  randomSeed: -1572472133
   InitialModule:
     serializedVersion: 3
     enabled: 1
