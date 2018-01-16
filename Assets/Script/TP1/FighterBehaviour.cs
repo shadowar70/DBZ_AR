@@ -31,15 +31,25 @@ public class FighterBehaviour : MonoBehaviour {
     float fireLeftKameha = 0;
     float fireRightKameha = 0;
 
+    public float deltaKameha = 1;
+    public float lastLeftKameha = 0;
+    public float lastRightKameha = 0;
+    public float timeElapsed = 0;
+
+    public Animator animbody;
+
     // Use this for initialization
     void Start () {
         interfaceTP2 = GetComponent<InterfaceTP2>();
         timer = 0;
         isKameha = false;
+        //animbody = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update () {
+        timeElapsed += Time.deltaTime;
+
         longMaxContourLeft = interfaceTP2.leftZ;
         longMaxContourRight = interfaceTP2.rightZ;
         MoveSide = interfaceTP2.headX;
@@ -83,17 +93,27 @@ public class FighterBehaviour : MonoBehaviour {
     }
 
     void BallAttack(int fireLeft) {
-        GameObject fireBall;
+        GameObject fireBall = null;
         if(fireLeft == 1) {
-            fireBall = Instantiate(prefabBall, spawnerLeft.transform.position, Quaternion.identity);
+            if (timeElapsed - lastLeftKameha > deltaKameha) {
+                lastLeftKameha = timeElapsed;
+                animbody.SetTrigger("isAttackingLeft");
+                fireBall = Instantiate(prefabBall, spawnerLeft.transform.position, Quaternion.identity);
+            }
         }
         else {
-            fireBall = Instantiate(prefabBall, spawnerRight.transform.position, Quaternion.identity);
+            if (timeElapsed - lastRightKameha > deltaKameha) {
+                lastRightKameha = timeElapsed;
+                animbody.SetTrigger("isAttackingRight");
+                fireBall = Instantiate(prefabBall, spawnerRight.transform.position, Quaternion.identity);
+            }
         }
-        fireBall.transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z));
-        AudioClip[] soundTab = { fxFire1, fxFire2, fxFire3 };
-        soundManager.GetComponent<SoundManager>().RandomizeSfx(soundTab);
 
+        if (fireBall != null) {
+            fireBall.transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z));
+            AudioClip[] soundTab = { fxFire1, fxFire2, fxFire3 };
+            soundManager.GetComponent<SoundManager>().RandomizeSfx(soundTab);
+        }
     }
 
     void Dash(float moveHeadX, float moveHeadZ){

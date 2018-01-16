@@ -1,0 +1,240 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 12.09.2016 16:10:20
+
+newmtl Material_012
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Hands.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Hands.bmp
+
+newmtl Material_015
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+
+newmtl Material_004
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Soles.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Soles.bmp
+
+newmtl Material_006
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Glove_Tops.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Glove_Tops.bmp
+
+newmtl Material_009
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Chest.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Chest.bmp
+
+newmtl Material_001
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Legs.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Legs.bmp
+
+newmtl Material_008
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Face.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Face.bmp
+
+newmtl Material_011
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Hair.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Hair.bmp
+
+newmtl Material_013
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Hands.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Hands.bmp
+
+newmtl Material_016
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+
+newmtl Material_010
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Face.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Face.bmp
+
+newmtl Material_014
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+
+newmtl Material_003
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Boot_Tips.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Boot_Tips.bmp
+
+newmtl Material_007
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Shirt.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Shirt.bmp
+
+newmtl Material_017
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Mouth.bmp
+
+newmtl Material_002
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Boots.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Boots.bmp
+
+newmtl Material_005
+	Ns 94.1176
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 0.6400 0.6400 0.6400
+	Ks 0.2500 0.2500 0.2500
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Arms.bmp
+	map_Kd C:\Users\tonya_000\Desktop\Majin Vegeta\Maj_Arms.bmp

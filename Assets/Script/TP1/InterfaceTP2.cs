@@ -26,7 +26,7 @@ public class InterfaceTP2 : MonoBehaviour {
     Texture2D textureRightHand;
 
     int factReducWebcam = 2;
-    int factReducTexture = 2;
+    int factReducTexture = 5;
     // int timer;
     double longMaxContour = 0;
 
@@ -255,7 +255,7 @@ public class InterfaceTP2 : MonoBehaviour {
         memstream.Close();
         memstream.Dispose();
         memstream = new MemoryStream();
-        //CvInvoke.Resize(matImage, matImage, new Size(webcam.Width / factReducTexture, webcam.Height / factReducTexture));
+        CvInvoke.Resize(matImage, matImage, new Size(webcam.Width / factReducTexture, webcam.Height / factReducTexture));
         matImage.Bitmap.Save(memstream, matImage.Bitmap.RawFormat);
         
         texture.LoadImage(memstream.ToArray());
